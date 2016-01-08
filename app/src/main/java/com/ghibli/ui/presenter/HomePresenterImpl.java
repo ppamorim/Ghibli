@@ -61,6 +61,10 @@ public class HomePresenterImpl implements HomePresenter {
     users = null;
   }
 
+  @Override public User getItem(int position) {
+    return users.get(position);
+  }
+
   private void getUser() {
     getUser.execute(new GetUser.Callback() {
       @Override public void onSuccess(ArrayList<User> users) {

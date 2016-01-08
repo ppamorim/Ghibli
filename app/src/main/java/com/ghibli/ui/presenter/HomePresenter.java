@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public interface HomePresenter extends Presenter {
   void setView(View view);
   void setFilter(String filter);
+  User getItem(int position);
   interface View {
     boolean isReady();
     void renderUsers(ArrayList<User> user);

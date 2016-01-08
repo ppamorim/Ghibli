@@ -15,8 +15,10 @@
 */
 package com.ghibli.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -30,11 +32,13 @@ import com.ghibli.di.HomeActivityModule;
 import com.ghibli.di.components.DaggerHomeActivityComponent;
 import com.ghibli.di.components.HomeActivityComponent;
 import com.ghibli.domain.model.User;
+import com.ghibli.ui.adapter.UserAdapter;
+import com.ghibli.ui.listener.RecyclerItemClickListener;
 import com.ghibli.ui.presenter.HomePresenter;
 import java.util.ArrayList;
 import javax.inject.Inject;
 
-public class HomeActivity extends AbstractActivity implements HomePresenter.View {
+public class HomeActivity extends AbstractActivity implements HomePresenter.View, RecyclerItemClickListener.OnItemClickListener {
 
   private HomeActivityComponent homeActivityComponent;
 
@@ -58,6 +62,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter.View
   @Override protected void onPostCreate(Bundle savedInstanceState) {
     super.onPostCreate(savedInstanceState);
     configToolbar();
+    configRecyclerView();
     searchUser();
   }
 
@@ -66,18 +71,24 @@ public class HomeActivity extends AbstractActivity implements HomePresenter.View
   }
 
   @Override public void renderUsers(ArrayList<User> user) {
-
+    ((UserAdapter)recyclerView.getAdapter()).setUsers(user);
+    showRecyclerView();
   }
 
   @Override public void onEmpty() {
-
+    showErrorView(R.string.request_no_item);
   }
 
   @Override public void onError() {
-    showErrorView();
+    showErrorView(R.string.request_error);
+  }
+
+  @Override public void onItemClick(View view, int position) {
+    showUserDetails(homePresenter.getItem(position));
   }
 
   private void searchUser() {
+    showProgressBar();
     homePresenter.setFilter("Vintage");
     homePresenter.initialize();
   }
@@ -94,10 +105,11 @@ public class HomeActivity extends AbstractActivity implements HomePresenter.View
     errorView.setVisibility(View.GONE);
   }
 
-  private void showErrorView() {
+  private void showErrorView(int errorId) {
     recyclerView.setVisibility(View.GONE);
     progressBar.setVisibility(View.GONE);
     errorView.setVisibility(View.VISIBLE);
+    errorView.setText(errorId);
   }
 
   private void configToolbar() {
@@ -106,6 +118,17 @@ public class HomeActivity extends AbstractActivity implements HomePresenter.View
     if (actionBar != null) {
       actionBar.setTitle(R.string.app_name);
     }
+  }
+
+  private void configRecyclerView() {
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setAdapter(new UserAdapter());
+    recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
+  }
+
+  private void showUserDetails(User user) {
+    Intent intent = new Intent(this, DetailActivity.class);
+    startActivity(intent);
   }
 
   private HomeActivityComponent homeActivityComponent() {

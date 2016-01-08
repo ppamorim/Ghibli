@@ -49,10 +49,14 @@ public class GetUserImpl implements Interactor, GetUser {
   @Override public void run() {
     try {
       InputStream result = new UserService().searchUser(callback.getFilter());
-      List<User> users = UserBinder.getUserArray(result);
-      DebugUtil.log("users> " + users.size());
-      if(users != null) {
-        onUserLoaded((ArrayList<User>) users);
+      if(result != null) {
+        List<User> users = UserBinder.getUserArray(result);
+        DebugUtil.log("users> " + users.size());
+        if(users.size() > 0) {
+          onUserLoaded((ArrayList<User>) users);
+        } else {
+          onEmpty();
+        }
       } else {
         onError();
       }
@@ -68,6 +72,14 @@ public class GetUserImpl implements Interactor, GetUser {
     mainThread.post(new Runnable() {
       @Override public void run() {
         callback.onSuccess(users);
+      }
+    });
+  }
+
+  private void onEmpty() {
+    mainThread.post(new Runnable() {
+      @Override public void run() {
+        callback.onEmpty();
       }
     });
   }
