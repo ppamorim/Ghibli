@@ -15,13 +15,13 @@
 */
 package com.ghibli.domain.interactor;
 
-import com.ghibli.domain.model.User;
+import com.ghibli.domain.model.Video;
 import java.util.ArrayList;
 
-public interface GetUser {
+public interface GetMostPopularVideo {
   void execute(Callback callback);
   interface Callback {
-    void onSuccess(ArrayList<User> users);
+    void onSuccess(ArrayList<Video> videos);
     void onEmpty();
     void onError();
     String getFilter();

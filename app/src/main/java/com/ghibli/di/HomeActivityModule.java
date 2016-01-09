@@ -16,8 +16,8 @@
 package com.ghibli.di;
 
 import com.ghibli.di.scopes.ActivityScope;
-import com.ghibli.domain.interactor.GetUser;
-import com.ghibli.domain.interactor.GetUserImpl;
+import com.ghibli.domain.interactor.GetMostPopularVideo;
+import com.ghibli.domain.interactor.GetMostPopularVideoImpl;
 import com.ghibli.ui.presenter.HomePresenter;
 import com.ghibli.ui.presenter.HomePresenterImpl;
 import dagger.Module;
@@ -30,7 +30,7 @@ import dagger.Provides;
     return presenter;
   }
 
-  @Provides @ActivityScope GetUser provideGetUser(GetUserImpl getUser) {
+  @Provides @ActivityScope GetMostPopularVideo provideGetUser(GetMostPopularVideoImpl getUser) {
     return getUser;
   }
 }

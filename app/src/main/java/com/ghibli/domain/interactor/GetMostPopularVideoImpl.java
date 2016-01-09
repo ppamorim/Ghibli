@@ -15,25 +15,25 @@
 */
 package com.ghibli.domain.interactor;
 
-import com.ghibli.domain.binder.UserBinder;
-import com.ghibli.domain.model.User;
-import com.ghibli.domain.service.UserService;
+import com.ghibli.domain.binder.VideoBinder;
+import com.ghibli.domain.model.Video;
+import com.ghibli.domain.service.VideoService;
 import com.ghibli.executor.Interactor;
 import com.ghibli.executor.InteractorExecutor;
 import com.ghibli.executor.MainThread;
 import com.ghibli.util.DebugUtil;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.json.JSONObject;
 
-public class GetUserImpl implements Interactor, GetUser {
+public class GetMostPopularVideoImpl implements Interactor, GetMostPopularVideo {
 
   private final InteractorExecutor interactorExecutor;
   private final MainThread mainThread;
   private Callback callback;
 
-  @Inject GetUserImpl(InteractorExecutor interactorExecutor, MainThread mainThread) {
+  @Inject GetMostPopularVideoImpl(InteractorExecutor interactorExecutor, MainThread mainThread) {
     this.interactorExecutor = interactorExecutor;
     this.mainThread = mainThread;
   }
@@ -48,12 +48,13 @@ public class GetUserImpl implements Interactor, GetUser {
 
   @Override public void run() {
     try {
-      InputStream result = new UserService().searchUser(callback.getFilter());
+      String result = new VideoService().searchUser(callback.getFilter());
       if(result != null) {
-        List<User> users = UserBinder.getUserArray(result);
-        DebugUtil.log("users> " + users.size());
-        if(users.size() > 0) {
-          onUserLoaded((ArrayList<User>) users);
+        JSONObject obj = new JSONObject(result);
+        String items = obj.getString("items");
+        List<Video> videos = VideoBinder.getVideoArray(items);
+        if(videos.size() > 0) {
+          onUserLoaded((ArrayList<Video>) videos);
         } else {
           onEmpty();
         }
@@ -68,10 +69,10 @@ public class GetUserImpl implements Interactor, GetUser {
     }
   }
 
-  private void onUserLoaded(final ArrayList<User> users) {
+  private void onUserLoaded(final ArrayList<Video> videos) {
     mainThread.post(new Runnable() {
       @Override public void run() {
-        callback.onSuccess(users);
+        callback.onSuccess(videos);
       }
     });
   }

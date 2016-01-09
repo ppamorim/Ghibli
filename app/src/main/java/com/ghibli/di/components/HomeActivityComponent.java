@@ -19,7 +19,7 @@ import android.app.Activity;
 import com.ghibli.di.ActivityModule;
 import com.ghibli.di.HomeActivityModule;
 import com.ghibli.di.scopes.ActivityScope;
-import com.ghibli.domain.interactor.GetUser;
+import com.ghibli.domain.interactor.GetMostPopularVideo;
 import com.ghibli.ui.activity.HomeActivity;
 import com.ghibli.ui.presenter.HomePresenter;
 import dagger.Component;
@@ -31,5 +31,5 @@ public interface HomeActivityComponent extends AbstractActivityComponent {
   void inject(HomeActivity baseActivity);
   Activity activityContext();
   HomePresenter getPresenter();
-  GetUser getUser();
+  GetMostPopularVideo getUser();
 }

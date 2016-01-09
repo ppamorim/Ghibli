@@ -31,14 +31,15 @@ import com.ghibli.di.ActivityModule;
 import com.ghibli.di.HomeActivityModule;
 import com.ghibli.di.components.DaggerHomeActivityComponent;
 import com.ghibli.di.components.HomeActivityComponent;
-import com.ghibli.domain.model.User;
-import com.ghibli.ui.adapter.UserAdapter;
+import com.ghibli.domain.model.Video;
+import com.ghibli.ui.adapter.VideoAdapter;
 import com.ghibli.ui.listener.RecyclerItemClickListener;
 import com.ghibli.ui.presenter.HomePresenter;
 import java.util.ArrayList;
 import javax.inject.Inject;
 
-public class HomeActivity extends AbstractActivity implements HomePresenter.View, RecyclerItemClickListener.OnItemClickListener {
+public class HomeActivity extends AbstractActivity implements HomePresenter.View,
+    RecyclerItemClickListener.OnItemClickListener {
 
   private HomeActivityComponent homeActivityComponent;
 
@@ -70,8 +71,8 @@ public class HomeActivity extends AbstractActivity implements HomePresenter.View
     return !isFinishing();
   }
 
-  @Override public void renderUsers(ArrayList<User> user) {
-    ((UserAdapter)recyclerView.getAdapter()).setUsers(user);
+  @Override public void renderUsers(ArrayList<Video> video) {
+    ((VideoAdapter)recyclerView.getAdapter()).setVideos(video);
     showRecyclerView();
   }
 
@@ -122,12 +123,13 @@ public class HomeActivity extends AbstractActivity implements HomePresenter.View
 
   private void configRecyclerView() {
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    recyclerView.setAdapter(new UserAdapter());
+    recyclerView.setAdapter(new VideoAdapter());
     recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, this));
   }
 
-  private void showUserDetails(User user) {
+  private void showUserDetails(Video video) {
     Intent intent = new Intent(this, DetailActivity.class);
+    intent.putExtra(Video.TAG, video);
     startActivity(intent);
   }
 

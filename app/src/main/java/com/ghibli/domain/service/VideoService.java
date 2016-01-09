@@ -16,27 +16,21 @@
 package com.ghibli.domain.service;
 
 import com.ghibli.GhibliApplication;
-import com.ghibli.util.DebugUtil;
 import java.io.IOException;
-import java.io.InputStream;
-import okhttp3.FormBody;
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 
-public class UserService {
+public class VideoService {
 
   OkHttpClient client = new OkHttpClient();
 
-  public InputStream searchUser(String userName) throws IOException {
-
+  public String searchUser(String userName) throws IOException {
     String endPoint = new StringBuilder(GhibliApplication.API)
-        .append("videos?query=")
-        .append(userName)
+        .append("videos?part=snippet&chart=mostPopular&regionCode=br&videoCategoryId=17&key=")
+        .append(GhibliApplication.YOUTUBE_KEY)
         .toString();
     Request request = new Request.Builder().url(endPoint).build();
-    return client.newCall(request).execute().body().byteStream();
+    return client.newCall(request).execute().body().string();
   }
 
 }

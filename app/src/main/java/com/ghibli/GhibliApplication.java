@@ -17,13 +17,15 @@
 package com.ghibli;
 
 import android.app.Application;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.ghibli.di.ApplicationModule;
 import com.ghibli.di.components.ApplicationComponent;
 import com.ghibli.di.components.DaggerApplicationComponent;
 
 public class GhibliApplication extends Application {
 
-  public static final String API = "https://api.vimeo.com";
+  public static final String API = "https://www.googleapis.com/youtube/v3/";
+  public static final String YOUTUBE_KEY = "AIzaSyCnbgeDrb8glx7NpFNvEubiqWfMZjGZdXc";
 
   private ApplicationComponent applicationComponent;
 
@@ -34,6 +36,12 @@ public class GhibliApplication extends Application {
   @Override public void onCreate() {
     super.onCreate();
     initializeDependencyInjector().inject(this);
+    Fresco.initialize(this);
+  }
+
+  @Override public void onTerminate() {
+    super.onTerminate();
+    Fresco.shutDown();
   }
 
   private ApplicationComponent initializeDependencyInjector() {

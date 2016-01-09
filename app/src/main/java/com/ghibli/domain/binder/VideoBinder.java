@@ -16,15 +16,15 @@
 package com.ghibli.domain.binder;
 
 import com.bluelinelabs.logansquare.LoganSquare;
-import com.ghibli.domain.model.User;
+import com.ghibli.domain.model.Video;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class UserBinder {
+public class VideoBinder {
 
-  public static List<User> getUserArray(InputStream inputStream) throws IOException {
-    return LoganSquare.parseList(inputStream, User.class);
+  public static List<Video> getVideoArray(String input) throws IOException {
+    return LoganSquare.parseList(input, Video.class);
   }
 
 }

@@ -15,12 +15,24 @@
 */
 package com.ghibli.ui.activity;
 
+import android.os.Bundle;
+import butterknife.Bind;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.ghibli.R;
+import com.ghibli.domain.model.Video;
+import com.ghibli.util.ImageUtil;
 
 public class DetailActivity extends AbstractActivity {
+
+  @Bind(R.id.video_image) SimpleDraweeView videoImage;
 
   @Override protected int getContentViewId() {
     return R.layout.activity_detail;
   }
 
+  @Override protected void onPostCreate(Bundle savedInstanceState) {
+    super.onPostCreate(savedInstanceState);
+    Video video = getIntent().getParcelableExtra(Video.TAG);
+    ImageUtil.loadImage(videoImage, video.getSnippet().getThumbnails().getStandard().getUrl());
+  }
 }

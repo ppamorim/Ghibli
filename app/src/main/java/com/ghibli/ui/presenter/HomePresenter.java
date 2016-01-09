@@ -15,16 +15,16 @@
 */
 package com.ghibli.ui.presenter;
 
-import com.ghibli.domain.model.User;
+import com.ghibli.domain.model.Video;
 import java.util.ArrayList;
 
 public interface HomePresenter extends Presenter {
   void setView(View view);
   void setFilter(String filter);
-  User getItem(int position);
+  Video getItem(int position);
   interface View {
     boolean isReady();
-    void renderUsers(ArrayList<User> user);
+    void renderUsers(ArrayList<Video> video);
     void onEmpty();
     void onError();
   }

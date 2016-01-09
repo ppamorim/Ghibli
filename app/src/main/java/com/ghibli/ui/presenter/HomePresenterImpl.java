@@ -15,8 +15,8 @@
 */
 package com.ghibli.ui.presenter;
 
-import com.ghibli.domain.interactor.GetUser;
-import com.ghibli.domain.model.User;
+import com.ghibli.domain.interactor.GetMostPopularVideo;
+import com.ghibli.domain.model.Video;
 import java.util.ArrayList;
 import javax.inject.Inject;
 
@@ -24,11 +24,11 @@ public class HomePresenterImpl implements HomePresenter {
 
   private View view;
   private String filter;
-  private ArrayList<User> users;
-  private GetUser getUser;
+  private ArrayList<Video> videos;
+  private GetMostPopularVideo getMostPopularVideo;
 
-  @Inject HomePresenterImpl(GetUser getUser) {
-    this.getUser = getUser;
+  @Inject HomePresenterImpl(GetMostPopularVideo getMostPopularVideo) {
+    this.getMostPopularVideo = getMostPopularVideo;
   }
 
   @Override public void setView(View view) {
@@ -55,20 +55,20 @@ public class HomePresenterImpl implements HomePresenter {
   }
 
   @Override public void destroy() {
-    if(users != null) {
-      users.clear();
+    if(videos != null) {
+      videos.clear();
     }
-    users = null;
+    videos = null;
   }
 
-  @Override public User getItem(int position) {
-    return users.get(position);
+  @Override public Video getItem(int position) {
+    return videos.get(position);
   }
 
   private void getUser() {
-    getUser.execute(new GetUser.Callback() {
-      @Override public void onSuccess(ArrayList<User> users) {
-        notifyUsers(users);
+    getMostPopularVideo.execute(new GetMostPopularVideo.Callback() {
+      @Override public void onSuccess(ArrayList<Video> videos) {
+        notifyUsers(videos);
       }
 
       @Override public void onEmpty() {
@@ -85,10 +85,10 @@ public class HomePresenterImpl implements HomePresenter {
     });
   }
 
-  private void notifyUsers(ArrayList<User> users) {
-    this.users = users;
+  private void notifyUsers(ArrayList<Video> videos) {
+    this.videos = videos;
     if(view.isReady()) {
-      view.renderUsers(users);
+      view.renderUsers(videos);
     }
   }
 
