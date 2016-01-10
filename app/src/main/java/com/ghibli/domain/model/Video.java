@@ -38,7 +38,6 @@ public class Video implements Parcelable {
     public Video createFromParcel(Parcel in) {
       return new Video(in);
     }
-
     public Video[] newArray(int size) {
       return new Video[size];
     }
@@ -64,7 +63,7 @@ public class Video implements Parcelable {
   }
 
   public Snippet getSnippet() {
-    if(snippet == null) {
+    if (snippet == null) {
       snippet = new Snippet();
     }
     return snippet;
@@ -105,7 +104,7 @@ public class Video implements Parcelable {
     }
 
     public Thumbnails getThumbnails() {
-      if(thumbnails == null) {
+      if (thumbnails == null) {
         thumbnails = new Thumbnails();
       }
       return thumbnails;
@@ -133,7 +132,7 @@ public class Video implements Parcelable {
       }
 
       public Standard getStandard() {
-        if(standard == null) {
+        if (standard == null) {
           standard = new Standard();
         }
         return standard;

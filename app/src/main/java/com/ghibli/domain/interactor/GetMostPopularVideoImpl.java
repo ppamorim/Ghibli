@@ -61,11 +61,11 @@ public class GetMostPopularVideoImpl implements Interactor, GetMostPopularVideo 
   @Override public void run() {
     try {
       String result = new VideoService().getMostPopular();
-      if(result != null) {
+      if (result != null) {
         JSONObject obj = new JSONObject(result);
         String items = obj.getString("items");
         List<Video> videos = VideoBinder.getVideoArray(items);
-        if(videos.size() > 0) {
+        if (videos.size() > 0) {
           ModelUtil.cleanVideos();
           VideoHandler.addOrUpdateVideos((ArrayList<Video>) videos);
           onVideosLoaded((ArrayList<Video>) videos);
@@ -89,7 +89,7 @@ public class GetMostPopularVideoImpl implements Interactor, GetMostPopularVideo 
    */
   private void loadSavedPopularVideos() {
     ArrayList<Video> videos = VideoGetter.getAllVideos();
-    if(videos != null) {
+    if (videos != null) {
       onVideosLoaded(videos);
     } else {
       onError();

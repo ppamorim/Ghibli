@@ -70,7 +70,7 @@ public class GhibliApplication extends Application {
    * @return O componente da aplicação.
    */
   private ApplicationComponent initializeDependencyInjector() {
-    if(applicationComponent == null) {
+    if (applicationComponent == null) {
       applicationComponent = DaggerApplicationComponent.builder()
           .applicationModule(new ApplicationModule(this))
           .build();

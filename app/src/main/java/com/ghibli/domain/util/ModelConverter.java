@@ -37,7 +37,7 @@ public class ModelConverter {
    */
   public static ArrayList<RealmVideo> convertVideoToRealmVideo(ArrayList<Video> videos) {
     ArrayList<RealmVideo> realmVideos = new ArrayList<>(videos.size());
-    for(Video video : videos) {
+    for (Video video : videos) {
       Video.Snippet snippet = video.getSnippet();
       realmVideos.add(
           new RealmVideo(video.getId(),
@@ -55,7 +55,7 @@ public class ModelConverter {
    */
   public static ArrayList<Video> convertRealmVideoToVideo(RealmResults<RealmVideo> realmVideos) {
     ArrayList<Video> videos = new ArrayList<>(realmVideos.size());
-    for(RealmVideo realmVideo : realmVideos) {
+    for (RealmVideo realmVideo : realmVideos) {
       Video video = new Video();
       video.setId(realmVideo.getId());
       video.getSnippet().setTitle(realmVideo.getTitle());

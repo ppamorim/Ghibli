@@ -18,7 +18,6 @@ package com.ghibli.domain.binder;
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.ghibli.domain.model.Video;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 /**
