@@ -48,7 +48,7 @@ public class DetailPresenterImpl implements DetailPresenter {
    * @return Instância com o parcelable adicionado.
    */
   @Override public Bundle saveInstance(Bundle instance) {
-    if(video != null) {
+    if (video != null) {
       instance.putParcelable(Video.TAG, video);
     }
     return instance;
@@ -61,7 +61,7 @@ public class DetailPresenterImpl implements DetailPresenter {
    * @param instance
    */
   @Override public void restoreInstance(Bundle instance) {
-    if(instance != null && instance.containsKey(Video.TAG)) {
+    if (instance != null && instance.containsKey(Video.TAG)) {
       video = instance.getParcelable(Video.TAG);
       instance.remove(Video.TAG);
       loadVideo();
@@ -85,7 +85,7 @@ public class DetailPresenterImpl implements DetailPresenter {
   }
 
   private void loadVideo() {
-    if(view.isReady() && video != null) {
+    if (view.isReady() && video != null) {
       view.loadVideo(video);
     }
   }

@@ -63,7 +63,7 @@ public class HomePresenterImpl implements HomePresenter {
    * @return Instância com o parcelable adicionado.
    */
   @Override public Bundle saveInstance(Bundle instance) {
-    if(instance != null && videos != null && videos.size() > 0) {
+    if (instance != null && videos != null && videos.size() > 0) {
       instance.putParcelableArrayList(VIDEOS, videos);
     }
     return instance;
@@ -76,7 +76,7 @@ public class HomePresenterImpl implements HomePresenter {
    * @param instance Instância a ser salva.
    */
   @Override public void restoreInstance(Bundle instance) {
-    if(instance != null && instance.containsKey(VIDEOS)) {
+    if (instance != null && instance.containsKey(VIDEOS)) {
       videos = instance.getParcelableArrayList(VIDEOS);
       instance.remove(VIDEOS);
     }
@@ -87,7 +87,7 @@ public class HomePresenterImpl implements HomePresenter {
    * e posteriormente invalida o objeto.
    */
   @Override public void destroy() {
-    if(videos != null) {
+    if (videos != null) {
       videos.clear();
     }
     videos = null;
@@ -135,19 +135,19 @@ public class HomePresenterImpl implements HomePresenter {
 
   private void notifyMostPopularVideo(ArrayList<Video> videos) {
     this.videos = videos;
-    if(view.isReady()) {
+    if (view.isReady()) {
       view.renderPopularVideo(videos);
     }
   }
 
   private void notifyEmpty() {
-    if(view.isReady()) {
+    if (view.isReady()) {
       view.onEmpty();
     }
   }
 
   private void notifyError() {
-    if(view.isReady()) {
+    if (view.isReady()) {
       view.onError();
     }
   }

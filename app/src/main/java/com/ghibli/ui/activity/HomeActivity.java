@@ -143,7 +143,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter.View
    * populares caso detecte que a lista está vazia.
    */
   private void refreshMostPopular() {
-    if(homePresenter.isMostPopularEmpty()) {
+    if (homePresenter.isMostPopularEmpty()) {
       showProgressBar();
       homePresenter.initialize();
     }
@@ -223,7 +223,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter.View
   }
 
   private HomeActivityComponent homeActivityComponent() {
-    if(homeActivityComponent == null) {
+    if (homeActivityComponent == null) {
       homeActivityComponent = DaggerHomeActivityComponent.builder()
           .applicationComponent(((GhibliApplication) getApplication()).component())
           .activityModule(new ActivityModule(this))

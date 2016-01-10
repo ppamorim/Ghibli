@@ -45,9 +45,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
    */
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
     Video.Snippet snippet = videos.get(position).getSnippet();
-    if(snippet != null) {
+    if (snippet != null) {
       holder.videoName.setText(snippet.getTitle());
-      ImageUtil.loadImage(holder.videoImage, snippet.getThumbnails().getStandard().getUrl());
+      ImageUtil.loadImage(holder.videoImage,
+          snippet.getThumbnails().getStandard().getUrl());
     }
   }
 

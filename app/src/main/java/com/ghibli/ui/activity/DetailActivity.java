@@ -35,7 +35,6 @@ import com.ghibli.domain.model.Video;
 import com.ghibli.ui.presenter.DetailPresenter;
 import com.ghibli.util.ImageUtil;
 import javax.inject.Inject;
-import org.w3c.dom.Text;
 
 public class DetailActivity extends AbstractActivity implements DetailPresenter.View {
 
@@ -50,7 +49,7 @@ public class DetailActivity extends AbstractActivity implements DetailPresenter.
 
   @OnClick(R.id.video_image) void onVideoClick() {
     Video video = detailPresenter.getVideo();
-    if(video != null) {
+    if (video != null) {
       startActivity(new Intent(Intent.ACTION_VIEW,
           Uri.parse("http://www.youtube.com/watch?v=" + video.getId())));
     }
@@ -70,7 +69,7 @@ public class DetailActivity extends AbstractActivity implements DetailPresenter.
   @Override protected void onPostCreate(Bundle savedInstanceState) {
     super.onPostCreate(savedInstanceState);
     Intent intent = getIntent();
-    if(intent.hasExtra(Video.TAG)) {
+    if (intent.hasExtra(Video.TAG)) {
       Video video = getIntent().getParcelableExtra(Video.TAG);
       detailPresenter.setVideo(video);
       loadVideo(video);
@@ -85,7 +84,7 @@ public class DetailActivity extends AbstractActivity implements DetailPresenter.
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch(item.getItemId()) {
+    switch (item.getItemId()) {
       case android.R.id.home:
         onBackPressed();
         return true;
@@ -108,14 +107,14 @@ public class DetailActivity extends AbstractActivity implements DetailPresenter.
   private void configToolbar() {
     setSupportActionBar(toolbar);
     ActionBar actionBar = getSupportActionBar();
-    if(actionBar != null) {
+    if (actionBar != null) {
       actionBar.setDisplayHomeAsUpEnabled(true);
       actionBar.setDisplayShowTitleEnabled(false);
     }
   }
 
   private DetailActivityComponent detailActivityComponent() {
-    if(detailActivityComponent == null) {
+    if (detailActivityComponent == null) {
       detailActivityComponent = DaggerDetailActivityComponent.builder()
           .applicationComponent(((GhibliApplication) getApplication()).component())
           .activityModule(new ActivityModule(this))
