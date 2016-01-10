@@ -31,7 +31,7 @@ public class DetailPresenterImpl implements DetailPresenter {
   private Video video;
   private View view;
 
-  @Inject DetailPresenterImpl() {}
+  @Inject DetailPresenterImpl() { }
 
   @Override public void setView(View view) {
     if (view == null) {

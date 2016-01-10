@@ -111,7 +111,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter.View
    */
   @Override public void renderPopularVideo(ArrayList<Video> video) {
     stopRefresh();
-    ((VideoAdapter)recyclerView.getAdapter()).setVideos(video);
+    ((VideoAdapter) recyclerView.getAdapter()).setVideos(video);
     showRecyclerView();
   }
 
