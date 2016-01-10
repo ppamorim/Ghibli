@@ -103,6 +103,10 @@ public class Video implements Parcelable {
       return description;
     }
 
+    public void setThumbnails(Thumbnails thumbnails) {
+      this.thumbnails = thumbnails;
+    }
+
     public Thumbnails getThumbnails() {
       if (thumbnails == null) {
         thumbnails = new Thumbnails();

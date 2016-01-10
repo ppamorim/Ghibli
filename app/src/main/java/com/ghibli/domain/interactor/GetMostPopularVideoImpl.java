@@ -41,7 +41,7 @@ public class GetMostPopularVideoImpl implements Interactor, GetMostPopularVideo 
   private final MainThread mainThread;
   private Callback callback;
 
-  @Inject GetMostPopularVideoImpl(InteractorExecutor interactorExecutor, MainThread mainThread) {
+  @Inject public GetMostPopularVideoImpl(InteractorExecutor interactorExecutor, MainThread mainThread) {
     this.interactorExecutor = interactorExecutor;
     this.mainThread = mainThread;
   }

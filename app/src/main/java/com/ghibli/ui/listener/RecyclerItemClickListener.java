@@ -21,13 +21,13 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * Essa classe é usada para possibilitar o click
+ * no item do RecyclerView.
+ */
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+
   private OnItemClickListener listener;
-
-  public interface OnItemClickListener {
-    void onItemClick(View view, int position);
-  }
-
   private GestureDetector gestureDetector;
 
   public RecyclerItemClickListener(Context context, OnItemClickListener listener) {
@@ -51,4 +51,9 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
   @Override public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) { }
 
   @Override public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) { }
+
+  public interface OnItemClickListener {
+    void onItemClick(View view, int position);
+  }
+
 }

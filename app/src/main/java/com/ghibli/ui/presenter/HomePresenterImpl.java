@@ -42,7 +42,7 @@ public class HomePresenterImpl implements HomePresenter {
    * Declara a instância do interactor assincrono.
    * @param getMostPopularVideo Instância do interactor.
    */
-  @Inject HomePresenterImpl(GetMostPopularVideo getMostPopularVideo) {
+  @Inject public HomePresenterImpl(GetMostPopularVideo getMostPopularVideo) {
     this.getMostPopularVideo = getMostPopularVideo;
   }
 
