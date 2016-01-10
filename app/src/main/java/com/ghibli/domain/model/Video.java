@@ -20,10 +20,18 @@ import android.os.Parcelable;
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
 
+/**
+ * Este objeto representa cada video do Youtube, nela
+ * contemos outras classes estáticas que informam para
+ * o processador do JSON(LoganSquare) o formato da classe.
+ */
 @JsonObject
 public class Video implements Parcelable {
 
   public static final String TAG = "Video";
+
+  @JsonField private String id;
+  @JsonField(name = "snippet") private Snippet snippet;
 
   public static final Parcelable.Creator<Video> CREATOR
       = new Parcelable.Creator<Video>() {
@@ -46,9 +54,6 @@ public class Video implements Parcelable {
     getSnippet().setDescription(in.readString());
     getSnippet().getThumbnails().getStandard().setUrl(in.readString());
   }
-
-  @JsonField private String id;
-  @JsonField(name = "snippet") private Snippet snippet;
 
   public String getId() {
     return id;

@@ -13,16 +13,23 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.ghibli.util;
+package com.ghibli.domain.util;
 
-public class DebugUtil {
+import com.ghibli.domain.model.realm.RealmVideo;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
-  public static boolean DEBUG = true;
+public class ModelUtil {
 
-  public static void log(String message) {
-    if(DebugUtil.DEBUG) {
-      System.out.println("LOG: " + message);
-    }
+  /**
+   * Remove todos os objetos RealmVideo salvos no banco.
+   */
+  public static void cleanVideos() {
+    Realm realm = Realm.getDefaultInstance();
+    RealmResults<RealmVideo> results = realm.where(RealmVideo.class).findAll();
+    realm.beginTransaction();
+    results.clear();
+    realm.commitTransaction();
   }
 
 }

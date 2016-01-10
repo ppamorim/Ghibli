@@ -16,8 +16,11 @@
 package com.ghibli.domain.interactor;
 
 import com.ghibli.domain.binder.VideoBinder;
+import com.ghibli.domain.getter.VideoGetter;
+import com.ghibli.domain.handler.VideoHandler;
 import com.ghibli.domain.model.Video;
 import com.ghibli.domain.service.VideoService;
+import com.ghibli.domain.util.ModelUtil;
 import com.ghibli.executor.Interactor;
 import com.ghibli.executor.InteractorExecutor;
 import com.ghibli.executor.MainThread;
@@ -27,6 +30,11 @@ import java.util.List;
 import javax.inject.Inject;
 import org.json.JSONObject;
 
+/**
+ * Essa classe trata toda a parte assincrona da requisição
+ * para o Youtube. Nela é contida a requisição, bind e
+ * salvamento, tudo somente numa thread.
+ */
 public class GetMostPopularVideoImpl implements Interactor, GetMostPopularVideo {
 
   private final InteractorExecutor interactorExecutor;
@@ -46,30 +54,53 @@ public class GetMostPopularVideoImpl implements Interactor, GetMostPopularVideo 
     this.interactorExecutor.run(this);
   }
 
+  /**
+   * Executa de forma assincrona a requisição,
+   * bind e salvamento de dados no banco.
+   */
   @Override public void run() {
     try {
-      String result = new VideoService().searchUser(callback.getFilter());
+      String result = new VideoService().getMostPopular();
       if(result != null) {
         JSONObject obj = new JSONObject(result);
         String items = obj.getString("items");
         List<Video> videos = VideoBinder.getVideoArray(items);
         if(videos.size() > 0) {
-          onUserLoaded((ArrayList<Video>) videos);
+          ModelUtil.cleanVideos();
+          VideoHandler.addOrUpdateVideos((ArrayList<Video>) videos);
+          onVideosLoaded((ArrayList<Video>) videos);
         } else {
           onEmpty();
         }
       } else {
-        onError();
+        loadSavedPopularVideos();
       }
     } catch (Exception e) {
       if (DebugUtil.DEBUG) {
         e.printStackTrace();
       }
+      loadSavedPopularVideos();
+    }
+  }
+
+  /**
+   * Tenta carregar os itens do banco de dados,
+   * caso não contenha itens, retorna erro.
+   */
+  private void loadSavedPopularVideos() {
+    ArrayList<Video> videos = VideoGetter.getAllVideos();
+    if(videos != null) {
+      onVideosLoaded(videos);
+    } else {
       onError();
     }
   }
 
-  private void onUserLoaded(final ArrayList<Video> videos) {
+  /**
+   * Retorna os dados para a main thread.
+   * @param videos
+   */
+  private void onVideosLoaded(final ArrayList<Video> videos) {
     mainThread.post(new Runnable() {
       @Override public void run() {
         callback.onSuccess(videos);
@@ -77,6 +108,9 @@ public class GetMostPopularVideoImpl implements Interactor, GetMostPopularVideo 
     });
   }
 
+  /**
+   * Informa a main thread que a lista está vazia.
+   */
   private void onEmpty() {
     mainThread.post(new Runnable() {
       @Override public void run() {
@@ -85,6 +119,9 @@ public class GetMostPopularVideoImpl implements Interactor, GetMostPopularVideo 
     });
   }
 
+  /**
+   * Informa a main thread que ocorreu algum erro.
+   */
   private void onError() {
     mainThread.post(new Runnable() {
       @Override public void run() {

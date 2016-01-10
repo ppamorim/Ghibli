@@ -21,8 +21,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+/**
+ * Classe que utiliza o LoganSquare para realizar o bind do JSON.
+ */
 public class VideoBinder {
 
+  /**
+   * Transforma o JSON em um ArrayList<Video>
+   * @param input JSON de lista de videos.
+   * @return ArrayList<Video>
+   * @throws IOException Caso exista alguma anormalidade com o JSON.
+   */
   public static List<Video> getVideoArray(String input) throws IOException {
     return LoganSquare.parseList(input, Video.class);
   }

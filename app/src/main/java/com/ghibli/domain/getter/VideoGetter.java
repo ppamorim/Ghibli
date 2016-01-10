@@ -13,16 +13,26 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.ghibli.util;
+package com.ghibli.domain.getter;
 
-public class DebugUtil {
+import com.ghibli.domain.model.Video;
+import com.ghibli.domain.model.realm.RealmVideo;
+import com.ghibli.domain.util.ModelConverter;
+import io.realm.Realm;
+import java.util.ArrayList;
 
-  public static boolean DEBUG = true;
+/**
+ * Classe utlizada para realizar requisições no banco de dados.
+ */
+public class VideoGetter {
 
-  public static void log(String message) {
-    if(DebugUtil.DEBUG) {
-      System.out.println("LOG: " + message);
-    }
+  /**
+   * Retorna todos os itens salvos no banco.
+   * @return Lista de items(Video).
+   */
+  public static ArrayList<Video> getAllVideos() {
+    return ModelConverter.convertRealmVideoToVideo(
+        Realm.getDefaultInstance().where(RealmVideo.class).findAll());
   }
 
 }

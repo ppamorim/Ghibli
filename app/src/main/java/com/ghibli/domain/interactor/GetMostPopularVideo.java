@@ -18,12 +18,15 @@ package com.ghibli.domain.interactor;
 import com.ghibli.domain.model.Video;
 import java.util.ArrayList;
 
+/**
+ * Esta interface realiza a conexão entre
+ * o presenter e o interactor.
+ */
 public interface GetMostPopularVideo {
   void execute(Callback callback);
   interface Callback {
     void onSuccess(ArrayList<Video> videos);
     void onEmpty();
     void onError();
-    String getFilter();
   }
 }

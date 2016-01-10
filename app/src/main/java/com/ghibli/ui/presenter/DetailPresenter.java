@@ -13,16 +13,20 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.ghibli.util;
+package com.ghibli.ui.presenter;
 
-public class DebugUtil {
+import com.ghibli.domain.model.Video;
 
-  public static boolean DEBUG = true;
-
-  public static void log(String message) {
-    if(DebugUtil.DEBUG) {
-      System.out.println("LOG: " + message);
-    }
+/**
+ * Interface que cria a conexão entre a
+ * DetailActivity e a implementação do presenter.
+ */
+public interface DetailPresenter extends Presenter {
+  void setView(View view);
+  void setVideo(Video video);
+  Video getVideo();
+  interface View {
+    boolean isReady();
+    void loadVideo(Video video);
   }
-
 }

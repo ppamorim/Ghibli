@@ -24,13 +24,13 @@ import dagger.Component;
 import javax.inject.Singleton;
 
 /**
- * ApplicationComponent is the top level component for this architecture. It provides generic
- * dependencies ic_like {@link InteractorExecutor} or {@link MainThread} and exposes them to
- * subcomponents and to external dependant classes.
+ * ApplicationComponent é o componente de alto nível para
+ * esta arquitetura. Ela fornece a instância de
+ * {@link InteractorExecutor} or {@link MainThread} e deixa
+ * estes expostos para as classes exteriores.
  *
- * Scope {@link Singleton} is used to limit dependency instances across whole execution.
- *
- * @author Pedro Paulo de Amorim
+ * O escopo {@link Singleton} é usado para limitar a
+ * depedência somente na execução.
  */
 @Singleton @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {

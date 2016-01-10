@@ -15,9 +15,13 @@
 */
 package com.ghibli.ui.presenter;
 
+import android.os.Bundle;
+/**
+ * Implementação genérica do presenter
+ */
 public interface Presenter {
   void initialize();
-  void resume();
-  void pause();
+  Bundle saveInstance(Bundle instance);
+  void restoreInstance(Bundle instance);
   void destroy();
 }

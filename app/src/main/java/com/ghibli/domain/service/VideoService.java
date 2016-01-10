@@ -24,7 +24,13 @@ public class VideoService {
 
   OkHttpClient client = new OkHttpClient();
 
-  public String searchUser(String userName) throws IOException {
+  /**
+   * Realiza a requisição para adquirir os
+   * videos mais populares no Brasil.
+   * @return String contendo o JSON da requisição.
+   * @throws IOException Caso ocorra algum erro de conexão.
+   */
+  public String getMostPopular() throws IOException {
     String endPoint = new StringBuilder(GhibliApplication.API)
         .append("videos?part=snippet&chart=mostPopular&regionCode=br&videoCategoryId=17&key=")
         .append(GhibliApplication.YOUTUBE_KEY)

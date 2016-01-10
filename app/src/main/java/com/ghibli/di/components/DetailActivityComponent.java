@@ -17,24 +17,21 @@ package com.ghibli.di.components;
 
 import android.app.Activity;
 import com.ghibli.di.ActivityModule;
-import com.ghibli.di.HomeActivityModule;
+import com.ghibli.di.DetailActivityModule;
 import com.ghibli.di.scopes.ActivityScope;
-import com.ghibli.domain.interactor.GetMostPopularVideo;
-import com.ghibli.ui.activity.HomeActivity;
-import com.ghibli.ui.presenter.HomePresenter;
+import com.ghibli.ui.activity.DetailActivity;
+import com.ghibli.ui.presenter.DetailPresenter;
 import dagger.Component;
 
 /**
  * Este componente é utilizado pela activity e ele gera
- * a instância do presenter e interactor para ser injetado
- * na activity.
+ * a instância do presenter para ser injetado na activity.
  */
 @ActivityScope @Component(dependencies = ApplicationComponent.class, modules = {
     ActivityModule.class,
-    HomeActivityModule.class })
-public interface HomeActivityComponent extends AbstractActivityComponent {
-  void inject(HomeActivity detailActivity);
+    DetailActivityModule.class })
+public interface DetailActivityComponent extends AbstractActivityComponent {
+  void inject(DetailActivity detailActivity);
   Activity activityContext();
-  HomePresenter getPresenter();
-  GetMostPopularVideo getUser();
+  DetailPresenter getPresenter();
 }

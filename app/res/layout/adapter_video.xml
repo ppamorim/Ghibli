@@ -19,6 +19,7 @@
             android:id="@+id/video_image_adapter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:actualImageScaleType="centerCrop"
             app:viewAspectRatio="1.77"/>
 
         <TextView

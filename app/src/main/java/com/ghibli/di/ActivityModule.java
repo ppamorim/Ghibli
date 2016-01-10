@@ -21,10 +21,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Dependency injection module used to provide activity scope context and satisfy activity/fragment
- * dependency needs
- *
- * @author Pedro Paulo de Amorim
+ * Modulo que cria e permite injetar o contexto da activity.
  */
 @Module public class ActivityModule {
 

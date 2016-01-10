@@ -13,16 +13,22 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.ghibli.util;
+package com.ghibli.di;
 
-public class DebugUtil {
+import com.ghibli.di.scopes.ActivityScope;
+import com.ghibli.ui.presenter.DetailPresenter;
+import com.ghibli.ui.presenter.DetailPresenterImpl;
+import dagger.Module;
+import dagger.Provides;
 
-  public static boolean DEBUG = true;
+/**
+ * Modulo que gera a instância do presenter para
+ * o DetailPresenter.
+ */
+@Module public class DetailActivityModule {
 
-  public static void log(String message) {
-    if(DebugUtil.DEBUG) {
-      System.out.println("LOG: " + message);
-    }
+  @Provides @ActivityScope DetailPresenter provideDetailPresenter(DetailPresenterImpl presenter) {
+    return presenter;
   }
 
 }

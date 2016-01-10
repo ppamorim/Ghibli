@@ -35,19 +35,35 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
   @Override public VideoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
       int viewType) {
     return new ViewHolder(LayoutInflater.from(parent.getContext())
-        .inflate(R.layout.adapter_user, parent, false));
+        .inflate(R.layout.adapter_video, parent, false));
   }
 
+  /**
+   * Realiza o carregamento de dados no item do adapter.
+   * @param holder Instância forte do item da lista.
+   * @param position Posição do item na lista.
+   */
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
     Video.Snippet snippet = videos.get(position).getSnippet();
-    holder.videoName.setText(snippet.getTitle());
-    ImageUtil.loadImage(holder.videoImage, snippet.getThumbnails().getStandard().getUrl());
+    if(snippet != null) {
+      holder.videoName.setText(snippet.getTitle());
+      ImageUtil.loadImage(holder.videoImage, snippet.getThumbnails().getStandard().getUrl());
+    }
   }
 
+  /**
+   * Retorna a contagem dos itens na lista para o RecyclerView.
+   * @return contagem dos itens na lista.
+   */
   @Override public int getItemCount() {
     return videos.size();
   }
 
+  /**
+   * Atualiza a lista, é chamado toda vez que a
+   * requisição dos dados é feita com sucesso.
+   * @param videos Lista de videos
+   */
   public void setVideos(ArrayList<Video> videos) {
     this.videos = videos;
   }

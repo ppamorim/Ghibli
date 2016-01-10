@@ -13,23 +13,29 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package com.ghibli.ui.presenter;
+package com.ghibli.domain.handler;
 
 import com.ghibli.domain.model.Video;
+import com.ghibli.domain.model.realm.RealmVideo;
+import com.ghibli.domain.util.ModelConverter;
+import io.realm.Realm;
 import java.util.ArrayList;
 
 /**
- * Interface que cria a conexão entre a
- * HomeActivity e a implementação do presenter.
+ * Classe utilizada para salvar os dados (Video) no banco.
  */
-public interface HomePresenter extends Presenter {
-  void setView(View view);
-  Video getItem(int position);
-  boolean isMostPopularEmpty();
-  interface View {
-    boolean isReady();
-    void renderPopularVideo(ArrayList<Video> video);
-    void onEmpty();
-    void onError();
+public class VideoHandler {
+
+  /**
+   * Adiciona os itens ou atualiza caso seja necessário.
+   * @param videos Lista de videos.
+   */
+  public static void addOrUpdateVideos(ArrayList<Video> videos) {
+    ArrayList<RealmVideo> realmVideos = ModelConverter.convertVideoToRealmVideo(videos);
+    Realm realm = Realm.getDefaultInstance();
+    realm.beginTransaction();
+    realm.copyToRealmOrUpdate(realmVideos);
+    realm.commitTransaction();
   }
+
 }

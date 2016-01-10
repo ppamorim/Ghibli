@@ -23,6 +23,10 @@ import com.ghibli.ui.presenter.HomePresenterImpl;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Modulo que gera a instância do presenter e interactor
+ * para o HomePresenter.
+ */
 @Module public class HomeActivityModule {
 
   @Provides @ActivityScope HomePresenter provideHomePresenter(
@@ -30,7 +34,9 @@ import dagger.Provides;
     return presenter;
   }
 
-  @Provides @ActivityScope GetMostPopularVideo provideGetUser(GetMostPopularVideoImpl getUser) {
-    return getUser;
+  @Provides @ActivityScope GetMostPopularVideo provideGetUser(GetMostPopularVideoImpl
+      getMostPopularVideo) {
+    return getMostPopularVideo;
   }
+
 }

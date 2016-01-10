@@ -7,4 +7,5 @@
   <color name="accent">#EBCD77</color>
   <color name="accent_dark">#D6BA6D</color>
   <color name="background">#73263A</color>
+  <color name="background_dark">#632132</color>
 </resources>

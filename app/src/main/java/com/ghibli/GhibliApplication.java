@@ -21,7 +21,12 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.ghibli.di.ApplicationModule;
 import com.ghibli.di.components.ApplicationComponent;
 import com.ghibli.di.components.DaggerApplicationComponent;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
+/**
+ * Classe que determina as configurações principais da aplicação.
+ */
 public class GhibliApplication extends Application {
 
   public static final String API = "https://www.googleapis.com/youtube/v3/";
@@ -33,10 +38,14 @@ public class GhibliApplication extends Application {
     super();
   }
 
+  /**
+   * Injeta as dependências principais (Interadores e Contextos).
+   */
   @Override public void onCreate() {
     super.onCreate();
     initializeDependencyInjector().inject(this);
     Fresco.initialize(this);
+    configRealm();
   }
 
   @Override public void onTerminate() {
@@ -44,6 +53,22 @@ public class GhibliApplication extends Application {
     Fresco.shutDown();
   }
 
+  /**
+   * Configura o banco de dados não relacional
+   */
+  private void configRealm() {
+    RealmConfiguration config = new RealmConfiguration.Builder(this)
+        .name("ghibli_sample.realm")
+        .schemaVersion(1)
+        .build();
+    Realm.setDefaultConfiguration(config);
+  }
+
+  /**
+   * Inicializa o componente da aplicação para permitir a
+   * injeção de dependência.
+   * @return O componente da aplicação.
+   */
   private ApplicationComponent initializeDependencyInjector() {
     if(applicationComponent == null) {
       applicationComponent = DaggerApplicationComponent.builder()
