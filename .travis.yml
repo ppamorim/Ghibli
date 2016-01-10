@@ -7,9 +7,9 @@ before_install:
 android:
   components:
     - tools
-        - build-tools-23.0.2
-        - android-23
-        - extra-android-m2repository
+    - build-tools-23.0.2
+    - android-23
+    - extra-android-m2repository
 
   licenses:
     - android-sdk-license-.+
