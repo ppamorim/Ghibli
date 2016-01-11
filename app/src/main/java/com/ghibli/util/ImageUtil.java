@@ -25,7 +25,7 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 public class ImageUtil {
 
   public static void loadImage(SimpleDraweeView simpleDraweeView, String url) {
-    if(url == null) {
+    if (url == null) {
       return;
     }
     ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
