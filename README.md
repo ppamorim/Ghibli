@@ -1,5 +1,5 @@
 
-[![Build Status](https://api.travis-ci.org/ppamorim/ghibli.svg?branch=master)](https://travis-ci.org/ppamorim/ghibli)
+[![Build Status](https://api.travis-ci.org/ppamorim/Ghibli.svg?branch=master)](https://travis-ci.org/ppamorim/Ghibli)
 
 # Configurações
 
