@@ -51,14 +51,13 @@ public class HomePresenterTest {
     Mockito.verifyZeroInteractions(view);
   }
 
-  @Test public void
-  givenViewReadyAndUserWithEmailAndNameWhenInitializeThenVerifyViewOnSendEmailSuccess() {
+  @Test public void givenViewReadyAndGenerateVideoObjectThenAssertRequestReturn() {
     Mockito.when(view.isReady()).thenReturn(true);
 
     Mockito.when(video.getId()).thenReturn("d3AajDTThww");
 
-    Mockito.when(snippet.getTitle()).thenReturn("some test");
-    Mockito.when(snippet.getDescription()).thenReturn("video test");
+    Mockito.when(snippet.getTitle()).thenReturn("some title");
+    Mockito.when(snippet.getDescription()).thenReturn("video description");
     Mockito.when(video.getSnippet()).thenReturn(snippet);
 
     Mockito.when(snippet.getThumbnails()).thenReturn(thumbnails);
@@ -71,57 +70,95 @@ public class HomePresenterTest {
       @Override
       public Object answer(InvocationOnMock invocation) throws Throwable {
 
-        ArrayList<Video> videos = new ArrayList<>();
+        ArrayList<Video> videosInner = new ArrayList<>();
 
-        Video video = new Video();
+        Video videoInner = new Video();
 
-        Assert.assertNotNull(video);
-        Assert.assertNull(video.getId());
-        Assert.assertNull(video.getSnippet());
-        video.setId("d3AajDTThww");
-        Assert.assertNotNull(video.getId());
+        Assert.assertNotNull(videoInner);
+        Assert.assertNull(videoInner.getId());
+        Assert.assertNotNull(videoInner.getSnippet());
+        videoInner.setId("d3AajDTThww");
+        Assert.assertNotNull(videoInner.getId());
 
-        Video.Snippet snippet = new Video.Snippet();
-        Assert.assertNotNull(snippet);
-        Assert.assertNull(snippet.getTitle());
-        Assert.assertNull(snippet.getDescription());
-        snippet.setTitle("some test");
-        snippet.setDescription("video test");
-        Assert.assertNotNull(snippet.getTitle());
-        Assert.assertNotNull(snippet.getDescription());
+        Video.Snippet snippetInner = new Video.Snippet();
+        Assert.assertNotNull(snippetInner);
+        Assert.assertNull(snippetInner.getTitle());
+        Assert.assertNull(snippetInner.getDescription());
+        snippetInner.setTitle("some title");
+        snippetInner.setDescription("video description");
+        Assert.assertNotNull(snippetInner.getTitle());
+        Assert.assertNotNull(snippetInner.getDescription());
 
-        Video.Snippet.Thumbnails thumbnails = new Video.Snippet.Thumbnails();
-        Assert.assertNotNull(thumbnails);
-        Assert.assertNull(thumbnails.getStandard());
+        Video.Snippet.Thumbnails thumbnailsInner = new Video.Snippet.Thumbnails();
+        Assert.assertNotNull(thumbnailsInner);
+        Assert.assertNotNull(thumbnailsInner.getStandard());
 
-        Video.Snippet.Thumbnails.Standard standard = new Video.Snippet.Thumbnails.Standard();
-        Assert.assertNotNull(standard);
-        Assert.assertNull(standard.getUrl());
-        standard.setUrl("some image");
-        Assert.assertNotNull(standard.getUrl());
+        Video.Snippet.Thumbnails.Standard standardInner = new Video.Snippet.Thumbnails.Standard();
+        Assert.assertNotNull(standardInner);
+        Assert.assertNull(standardInner.getUrl());
+        standardInner.setUrl("some image");
+        Assert.assertNotNull(standardInner.getUrl());
 
-        thumbnails.setStandard(standard);
-        Assert.assertNotNull(thumbnails.getStandard());
+        thumbnailsInner.setStandard(standardInner);
+        Assert.assertNotNull(thumbnailsInner.getStandard());
 
-        snippet.setThumbnails(thumbnails);
-        Assert.assertNotNull(snippet.getThumbnails());
+        snippetInner.setThumbnails(thumbnailsInner);
+        Assert.assertNotNull(snippetInner.getThumbnails());
 
-        video.setSnippet(snippet);
-        Assert.assertNotNull(video.getSnippet());
+        videoInner.setSnippet(snippetInner);
+        Assert.assertNotNull(videoInner.getSnippet());
 
-        videos.add(video);
+        videosInner.add(videoInner);
 
         Object[] args = invocation.getArguments();
         GetMostPopularVideo.Callback callback = (GetMostPopularVideo.Callback) args[0];
-        callback.onSuccess(videos);
+        callback.onSuccess(videosInner);
         return null;
       }
     }).when(getMostPopularVideo).execute(Mockito.any(GetMostPopularVideo.Callback.class));
 
-    //homePresenter.setView(view);
-    //homePresenter.initialize();
-    //
-    //Mockito.verify(view).renderPopularVideo(videos);
+    homePresenter.setView(view);
+    homePresenter.initialize();
+
+  }
+
+  @Test public void givenViewReadyAndReturnEmpty() {
+    Mockito.when(view.isReady()).thenReturn(true);
+
+    Mockito.doAnswer(new Answer() {
+      @Override
+      public Object answer(InvocationOnMock invocation) throws Throwable {
+        Object[] args = invocation.getArguments();
+        GetMostPopularVideo.Callback callback = (GetMostPopularVideo.Callback) args[0];
+        callback.onEmpty();
+        return null;
+      }
+    }).when(getMostPopularVideo).execute(Mockito.any(GetMostPopularVideo.Callback.class));
+
+    homePresenter.setView(view);
+    homePresenter.initialize();
+
+    Mockito.verify(view).onEmpty();
+
+  }
+
+  @Test public void givenViewReadyAndReturnError() {
+    Mockito.when(view.isReady()).thenReturn(true);
+
+    Mockito.doAnswer(new Answer() {
+      @Override
+      public Object answer(InvocationOnMock invocation) throws Throwable {
+        Object[] args = invocation.getArguments();
+        GetMostPopularVideo.Callback callback = (GetMostPopularVideo.Callback) args[0];
+        callback.onError();
+        return null;
+      }
+    }).when(getMostPopularVideo).execute(Mockito.any(GetMostPopularVideo.Callback.class));
+
+    homePresenter.setView(view);
+    homePresenter.initialize();
+
+    Mockito.verify(view).onError();
 
   }
 

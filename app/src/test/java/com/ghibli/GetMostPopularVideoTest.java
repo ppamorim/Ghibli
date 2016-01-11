@@ -92,6 +92,7 @@ public class GetMostPopularVideoTest {
 
     getMostPopularVideo.execute(callback);
     Mockito.verify(callback).onSuccess(videos);
+
   }
 
 }

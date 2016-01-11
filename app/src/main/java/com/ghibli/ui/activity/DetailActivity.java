@@ -100,7 +100,10 @@ public class DetailActivity extends AbstractActivity implements DetailPresenter.
   @Override public void loadVideo(Video video) {
     ImageUtil.loadImage(videoImage, video.getSnippet().getThumbnails().getStandard().getUrl());
     title.setText(video.getSnippet().getTitle());
-    description.setText(video.getSnippet().getDescription());
+    String descriptionText = video.getSnippet().getDescription();
+    if (descriptionText != null && !descriptionText.isEmpty()) {
+      description.setText(descriptionText);
+    }
     detailPresenter.setVideo(video);
   }
 

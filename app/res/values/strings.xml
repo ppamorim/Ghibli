@@ -3,4 +3,5 @@
 
   <string name="request_error">Falha de conexão</string>
   <string name="request_no_item">Não há usuários com este nome</string>
+  <string name="no_comment">Não há comentários para este vídeo.</string>
 </resources>
