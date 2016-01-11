@@ -1,3 +1,4 @@
+![Logo 1][1]
 
 [![Build Status](https://api.travis-ci.org/ppamorim/Ghibli.svg?branch=master)](https://travis-ci.org/ppamorim/Ghibli)
 
@@ -29,3 +30,5 @@ O projeto utiliza o estilo de código da Square, sendo 2 espaços para as indent
 No momento é o mais recomendado para Android pois facilita a leitura e organização do código (mais compacto).
 
 Travis CI é utilizado para analisar o código e verificar se há alguma divergência do estilo de código.
+
+[1]: ./art/ghibli_logo_github.png

@@ -82,7 +82,7 @@
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:textColor="@color/white"
-                android:text="@string/no_comment"/>
+                android:text="@string/no_details"/>
 
         </LinearLayout>
 
